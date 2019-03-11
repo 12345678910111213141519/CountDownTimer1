@@ -11,7 +11,8 @@ import org.w3c.dom.Text;
 public class MainActivity extends AppCompatActivity {
     private int counter=99;
     private static final String CURRENT_COUNTER ="counter";
-
+    private boolean wasRunning = false;
+    private boolean running = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,5 +52,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
+    @Override
+    public void onStop(){
+        super.onStop();
+    }
 }
