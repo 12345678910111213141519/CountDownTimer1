@@ -9,8 +9,8 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
-    private int counter=99;
-    private static final String CURRENT_COUNTER ="counter";
+    private int counter = 99;
+    private static final String CURRENT_COUNTER = "counter";
     private boolean wasRunning = false;
     private boolean running = false;
 
@@ -18,24 +18,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if(savedInstanceState !=null) {
+        if (savedInstanceState != null) {
             counter = savedInstanceState.getInt(CURRENT_COUNTER);
         }
+
         countDown();
     }
-
 
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putInt(CURRENT_COUNTER,counter);
+        savedInstanceState.putInt(CURRENT_COUNTER, counter);
     }
 
-    private void countDown(){
+    private void countDown() {
 
 
-        final Handler handler=new Handler();
+        final Handler handler = new Handler();
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -44,16 +44,47 @@ public class MainActivity extends AppCompatActivity {
                 if (counter == 0) {
                     counter = 99;
                 }
-
-                counter--;
+                if (running) {
+                    counter--;
+                }
                 handler.postDelayed(this, 1000);
 
 
             }
         });
+
     }
+
+    protected void startCouter(View view){
+        running = true;
+    }
+    protected void stopCount(View view){
+        running = false;
+    }
+
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        running = true;
+    }
+
+
     @Override
     public void onStop(){
+
         super.onStop();
+        running = false;
     }
 }
